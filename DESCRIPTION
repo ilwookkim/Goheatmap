@@ -1,0 +1,15 @@
+Package: GOheatmap
+Title: Heatmap with GO Terms
+Version: 1.0.0
+Authors@R: c(
+    person("Ilwook", "Kim", role = c("aut","cre"), email = "ilwook.kim.1982@gmail.com"))
+Description: Complexheatmap with GO Terms enrichment using gprofiler2 package.
+License: GPL-3
+Depends: R (>= 3.6)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+biocViews: 
+Imports: 
+  ComplexHeatmap, gprofiler2, dendextend
