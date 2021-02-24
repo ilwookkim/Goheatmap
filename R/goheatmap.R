@@ -19,7 +19,8 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title
     mat <- mat[, !sapply(mat, function(x) { stats::sd(x) == 0} )]
     mat <- cor(t(mat), method = "spearman")
   } else {
-    mat <- mat
+    mat <- t(mat)
+    mat <- apply(mat,1,scale)
   }
 
   ht <- as.dendrogram(hclust(dist(mat)), method = "average")
@@ -42,18 +43,36 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title
   text_list <- lapply(1:k, function(x) get(paste0("lt",x)))
   ha = rowAnnotation(foo = anno_empty(border = FALSE,
                                       width = max_text_width(unlist(text_list)) + unit(4, "mm")))
-  draw(Heatmap(mat, name = title,
-               cluster_rows = ht,
-               row_split = k,
-               column_split = k,
-               right_annotation = ha,
-               border = TRUE ,
-               show_row_names = FALSE,
-               show_column_names = FALSE,
-               column_title = NULL,
-               row_title = NULL))
-  for(i in 1:k) {
-    decorate_annotation("foo", slice = i, {
-      grid.text(paste(text_list[[i]], collapse = "\n"), x = unit(2, "mm"), just = "left")
-    })}
+  if(cor){
+    draw(Heatmap(mat, name = title,
+                 cluster_rows = ht,
+                 row_split = k,
+                 column_split = k,
+                 right_annotation = ha,
+                 border = TRUE ,
+                 show_row_names = FALSE,
+                 show_column_names = FALSE,
+                 column_title = NULL,
+                 row_title = NULL))
+    for(i in 1:k) {
+      decorate_annotation("foo", slice = i, {
+        grid.text(paste(text_list[[i]], collapse = "\n"), x = unit(2, "mm"), just = "left")
+      })}
+  } else {
+    draw(Heatmap(mat, name = title,
+                 cluster_rows = ht,
+                 row_split = k,
+                 right_annotation = ha,
+                 border = TRUE ,
+                 show_row_names = FALSE,
+                 show_column_names = FALSE,
+                 column_title = NULL,
+                 row_title = NULL))
+    for(i in 1:k) {
+      decorate_annotation("foo", slice = i, {
+        grid.text(paste(text_list[[i]], collapse = "\n"), x = unit(2, "mm"), just = "left")
+      })}
+
+  }
+
 }
