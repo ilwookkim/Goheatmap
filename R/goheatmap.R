@@ -5,7 +5,7 @@
 #' @param k number of groups (cutree).
 #' @param n_go number of GO Terms to display.
 #' @param sources Term sources from g:profiler - GO Terms, KEGG, Reactome, WikiPathways, Transfac, miRTarBase, Human Protein Atlas, CORUM protein complexes, Human Phenotype Ontology ("GO:MF","GO:CC","GO:BP","KEGG","REAC","WP","TF","MIRNA","HPA","CORUM","HP")
-#' @param cor  Use correlation coefficient matrix. Default to TRUE.
+#' @param cor  TRUE for correlation coefficient matrix. FALSE for z-score normalization of matrix. Default to TRUE.
 #' @param title Title of heatmap
 #' @examples
 #' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP")
