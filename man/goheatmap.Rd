@@ -4,7 +4,14 @@
 \alias{goheatmap}
 \title{goheatmap}
 \usage{
-goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP")
+goheatmap(
+  mat,
+  k = 3,
+  n_go = 3,
+  sources = "GO:BP",
+  cor = TRUE,
+  title = "Goheatmap"
+)
 }
 \arguments{
 \item{mat}{numeric matrix of the values.}
@@ -14,6 +21,10 @@ goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP")
 \item{n_go}{number of GO Terms to display.}
 
 \item{sources}{Term sources from g:profiler - GO Terms, KEGG, Reactome, WikiPathways, Transfac, miRTarBase, Human Protein Atlas, CORUM protein complexes, Human Phenotype Ontology ("GO:MF","GO:CC","GO:BP","KEGG","REAC","WP","TF","MIRNA","HPA","CORUM","HP")}
+
+\item{cor}{Use correlation coefficient matrix. Default to TRUE.}
+
+\item{title}{Title of heatmap}
 }
 \description{
 ComplexHeatmap with GO Terms using gprofiler2 package.
