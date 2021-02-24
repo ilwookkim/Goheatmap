@@ -29,9 +29,6 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title
   for (i in 1:k) {
     clusters <- names(labels_ht[which(factor(labels_ht) == unique(labels_ht)[i])])
     go <- gost(clusters)
-    if(is.null(go)){
-      print("No information of genes. Check the matirx")
-    }
     gp_mod = go$result[,c("source", "term_id", "term_name", "p_value")]
     row.names(gp_mod) = gp_mod$term_id
     gp_term <- filter(gp_mod, grepl(sources, source, ignore.case=TRUE))
