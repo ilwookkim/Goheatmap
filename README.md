@@ -16,7 +16,7 @@ library(GOheatmap)
 ```
 
 **Load example data**
-
+LAML-TCGA RNAseq data
 ``` r 
 mat.file <- system.file("extdata", "mat.Rdata", package="GOheatmap")
 load(mat.file)
@@ -42,7 +42,7 @@ AGO3           727.3663         1237.6171          896.2444          965.2433
 
 **Run goheatmap**
 
-Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis)
+Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for z-score normalization), title (Title of heatmap)
 
 ``` r
 goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title = "GOheatmap")

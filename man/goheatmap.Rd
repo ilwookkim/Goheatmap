@@ -22,7 +22,7 @@ goheatmap(
 
 \item{sources}{Term sources from g:profiler - GO Terms, KEGG, Reactome, WikiPathways, Transfac, miRTarBase, Human Protein Atlas, CORUM protein complexes, Human Phenotype Ontology ("GO:MF","GO:CC","GO:BP","KEGG","REAC","WP","TF","MIRNA","HPA","CORUM","HP")}
 
-\item{cor}{Use correlation coefficient matrix. Default to TRUE.}
+\item{cor}{TRUE for correlation coefficient matrix. FALSE for z-score normalization of matrix. Default to TRUE.}
 
 \item{title}{Title of heatmap}
 }

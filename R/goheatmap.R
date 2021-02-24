@@ -20,7 +20,9 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title
     mat <- cor(t(mat), method = "spearman")
   } else {
     mat <- t(mat)
+    genes <- colnames(mat)
     mat <- apply(mat,1,scale)
+    rownames(mat) <- genes
   }
 
   ht <- as.dendrogram(hclust(dist(mat)), method = "average")
