@@ -31,9 +31,8 @@ Remove NA, if necessary.
 mat <- data.frame(na.omit(mat))
 knitr::kable(head(mat[, 1:4], 3), "simple")
 
-```
+# column: samples, row: genes (HGNC symbol)
 
-``` r
         TCGA.AB.2803.03   TCGA.AB.2805.03   TCGA.AB.2806.03   TCGA.AB.2807.03
 -----  ----------------  ----------------  ----------------  ----------------
 AGO1          1758.2305         4728.2463         2947.8039         2831.1817
