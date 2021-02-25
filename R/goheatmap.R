@@ -10,7 +10,7 @@
 #' @examples
 #' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap")
 #' @export
-#' @import ComplexHeatmap gprofiler2 dendextend magrittr ellipse DESeq2
+#' @import ComplexHeatmap gprofiler2 dendextend magrittr DESeq2
 #' @importFrom dplyr filter top_n
 #' @importFrom grid grid.text grid.rect gpar
 

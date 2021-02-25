@@ -2,8 +2,8 @@
 
 export(goheatmap)
 import(ComplexHeatmap)
+import(DESeq2)
 import(dendextend)
-import(ellipse)
 import(gprofiler2)
 import(magrittr)
 importFrom(dplyr,filter)

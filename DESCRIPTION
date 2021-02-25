@@ -12,4 +12,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 biocViews: 
 Imports: 
-  ComplexHeatmap, gprofiler2, dendextend, dplyr, magrittr, DESeq2, EDASeq
+  ComplexHeatmap, gprofiler2, dendextend, dplyr, magrittr, DESeq2, EDASeq, grid
