@@ -16,7 +16,7 @@ library(GOheatmap)
 ```
 
 **Load example data**
-LAML-TCGA RNAseq data
+selected STAD-TCGA RNAseq data (gene set for Transcriptional regulation by TP53; 50 patients from TP53 wildtype and 50 from mutation)
 ``` r 
 mat.file <- system.file("extdata", "mat.Rdata", package="GOheatmap")
 load(mat.file)
@@ -33,24 +33,23 @@ knitr::kable(head(mat[, 1:4], 3), "simple")
 
 # column: samples, row: genes (HGNC symbol)
 
-        TCGA.AB.2803.03   TCGA.AB.2805.03   TCGA.AB.2806.03   TCGA.AB.2807.03
------  ----------------  ----------------  ----------------  ----------------
-AGO1          1758.2305         4728.2463         2947.8039         2831.1817
-AGO2           367.2840          771.7537         1113.3036         1076.4647
-AGO3           727.3663         1237.6171          896.2444          965.2433
+         TCGA.CD.8536.01   TCGA.HU.A4G3.01   TCGA.BR.8058.01   TCGA.CG.5722.01
+------  ----------------  ----------------  ----------------  ----------------
+AKT1               11071             11013              7099              3754
+AKT2                5643              2964              6347              5408
+APAF1               2102              2265              2689               626
 ```
 
 **Run goheatmap**
 
-Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for z-score normalization), title (Title of heatmap)
+Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for z-score normalization from variance stabilizing transformed matrix (DESeq2)), title (Title of heatmap)
 
 ``` r
-goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title = "GOheatmap")
-goheatmap(mat, k = 3, n_go = 3, sources = "KEGG", cor = TRUE, title = "GOheatmap")
-goheatmap(mat, k = 3, n_go = 3, sources = "WP", cor = TRUE, title = "GOheatmap")
-
+goheatmap(mat, k = 2, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "GOheatmap")
+goheatmap(mat, k = 2, n_go = 3, sources = "KEGG", cor.s = TRUE, title = "GOheatmap")
+goheatmap(mat, k = 2, n_go = 3, sources = "GO:BP", cor.s = FALSE, title = "GOheatmap")
 ```
 
 <img src="inst/extdata/example_go.bp.png"/>
 <img src="inst/extdata/example_kegg.png"/>
-<img src="inst/extdata/example_wp.png"/>
+<img src="inst/extdata/example_go.bp2.png"/>

@@ -5,20 +5,21 @@
 #' @param k number of groups (cutree).
 #' @param n_go number of GO Terms to display.
 #' @param sources Term sources from g:profiler - GO Terms, KEGG, Reactome, WikiPathways, Transfac, miRTarBase, Human Protein Atlas, CORUM protein complexes, Human Phenotype Ontology ("GO:MF","GO:CC","GO:BP","KEGG","REAC","WP","TF","MIRNA","HPA","CORUM","HP")
-#' @param cor  TRUE for correlation coefficient matrix. FALSE for z-score normalization of matrix. Default to TRUE.
+#' @param cor.s  TRUE for correlation coefficient matrix. FALSE for z-score normalization of matrix. Default to TRUE.
 #' @param title Title of heatmap
 #' @examples
-#' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP")
+#' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap")
 #' @export
-#' @import ComplexHeatmap gprofiler2 dendextend magrittr ellipse
+#' @import ComplexHeatmap gprofiler2 dendextend magrittr ellipse DESeq2
 #' @importFrom dplyr filter top_n
 #' @importFrom grid grid.text grid.rect gpar
 
-goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title = "Goheatmap"){
-  if(cor){
+goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap"){
+  if(cor.s){
     mat <- mat[, !sapply(mat, function(x) { stats::sd(x) == 0} )]
     mat <- cor(t(mat), method = "spearman")
   } else {
+    mat <- varianceStabilizingTransformation(as.matrix(mat))
     mat <- t(mat)
     genes <- colnames(mat)
     mat <- apply(mat,1,scale)
@@ -45,7 +46,7 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor = TRUE, title
   text_list <- lapply(1:k, function(x) get(paste0("lt",x)))
   ha = rowAnnotation(foo = anno_empty(border = FALSE,
                                       width = max_text_width(unlist(text_list)) + unit(4, "mm")))
-  if(cor){
+  if(cor.s){
     draw(Heatmap(mat, name = title,
                  cluster_rows = ht,
                  row_split = k,
