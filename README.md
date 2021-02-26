@@ -28,7 +28,7 @@ Remove NA, if necessary.
 
 ``` r
 
-mat <- data.frame(na.omit(mat))
+mat <- data.frame(na.omit(countdata))
 knitr::kable(head(mat[, 1:4], 3), "simple")
 
 # column: samples, row: genes (HGNC symbol)
