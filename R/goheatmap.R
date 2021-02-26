@@ -19,11 +19,11 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, tit
     mat <- mat[, !sapply(mat, function(x) { stats::sd(x) == 0} )]
     mat <- cor(t(mat), method = "spearman")
   } else {
-    mat <- varianceStabilizingTransformation(as.matrix(round(mat)))
+    #mat <- varianceStabilizingTransformation(as.matrix(round(mat)))
     mat <- t(mat)
-    genes <- colnames(mat)
-    mat <- apply(mat,1,scale)
-    rownames(mat) <- genes
+    #genes <- colnames(mat)
+    #mat <- apply(mat,1,scale)
+    #rownames(mat) <- genes
   }
 
   ht <- as.dendrogram(hclust(dist(mat)), method = "average")
