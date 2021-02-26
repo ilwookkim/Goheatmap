@@ -9,7 +9,9 @@
 #' @param cor.s  TRUE for correlation coefficient matrix. FALSE for z-score normalization of matrix. Default to TRUE.
 #' @param title Title of heatmap
 #' @examples
-#' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap")
+#' mat.file <- system.file("extdata", "mat.Rdata", package="GOheatmap")
+#' load(mat.file)
+#' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE)
 #' @export
 #' @import ComplexHeatmap gprofiler2 dendextend magrittr DESeq2 RColorBrewer
 #' @importFrom dplyr filter top_n
@@ -57,7 +59,9 @@ goheatmap <- function(mat, anno= NA, k = 3, n_go = 3, sources = "GO:BP", cor.s =
                  show_row_names = FALSE,
                  show_column_names = FALSE,
                  column_title = NULL,
-                 row_title = NULL))
+                 row_title = NULL),
+         column_title = title,
+         column_title_gp = gpar(fontsize = 15, fontface = "bold"))
     for(i in 1:k) {
       decorate_annotation("foo", slice = i, {
         grid.text(paste(text_list[[i]], collapse = "\n"), x = unit(2, "mm"), just = "left")
@@ -74,6 +78,8 @@ goheatmap <- function(mat, anno= NA, k = 3, n_go = 3, sources = "GO:BP", cor.s =
 
 
     draw(Heatmap(mat, name = title,
+                 column_title = title,
+                 column_title_gp = gpar(fontsize = 15, fontface = "bold"),
                  cluster_rows = ht,
                  row_split = k,
                  top_annotation = ha_row,
@@ -82,7 +88,9 @@ goheatmap <- function(mat, anno= NA, k = 3, n_go = 3, sources = "GO:BP", cor.s =
                  show_row_names = FALSE,
                  show_column_names = FALSE,
                  column_title = NULL,
-                 row_title = NULL))
+                 row_title = NULL),
+         column_title = title,
+         column_title_gp = gpar(fontsize = 15, fontface = "bold"))
     for(i in 1:k) {
       decorate_annotation("foo", slice = i, {
         grid.text(paste(text_list[[i]], collapse = "\n"), x = unit(2, "mm"), just = "left")

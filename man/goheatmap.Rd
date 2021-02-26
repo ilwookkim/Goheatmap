@@ -33,5 +33,7 @@ goheatmap(
 ComplexHeatmap with GO Terms using gprofiler2 package.
 }
 \examples{
-goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap")
+mat.file <- system.file("extdata", "mat.Rdata", package="GOheatmap")
+load(mat.file)
+goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE)
 }
