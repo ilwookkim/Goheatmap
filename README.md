@@ -16,7 +16,7 @@ library(GOheatmap)
 ```
 
 **Load example data**
-selected STAD-TCGA RNAseq data (275 top significant DEGs; 50 patients from TP53 wildtype and 50 from mutation)
+selected STAD-TCGA RNAseq data (50 patients from TP53 wildtype and 50 from mutation; 275 genes selected by top significant DEGs)
 ``` r 
 mat.file <- system.file("extdata", "mat.Rdata", package="GOheatmap")
 load(mat.file)
