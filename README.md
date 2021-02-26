@@ -16,7 +16,7 @@ library(GOheatmap)
 ```
 
 **Load example data**
-selected STAD-TCGA RNAseq data (gene set for Transcriptional regulation by TP53; 50 patients from TP53 wildtype and 50 from mutation)
+selected STAD-TCGA RNAseq data (275 top significant DEGs; 50 patients from TP53 wildtype and 50 from mutation)
 ``` r 
 mat.file <- system.file("extdata", "mat.Rdata", package="GOheatmap")
 load(mat.file)
@@ -28,21 +28,21 @@ Remove NA, if necessary.
 
 ``` r
 
-mat <- data.frame(na.omit(countdata))
+mat <- data.frame(na.omit(mat))
 knitr::kable(head(mat[, 1:4], 3), "simple")
 
 # column: samples, row: genes (HGNC symbol)
 
-         TCGA.CD.8536.01   TCGA.HU.A4G3.01   TCGA.BR.8058.01   TCGA.CG.5722.01
+         TCGA.CD.8536.01   TCGA.BR.8077.01   TCGA.HU.A4G3.01   TCGA.HU.A4H4.01
 ------  ----------------  ----------------  ----------------  ----------------
-AKT1               11071             11013              7099              3754
-AKT2                5643              2964              6347              5408
-APAF1               2102              2265              2689               626
+ACTC1                 31               104               349                37
+ACTG2               4385              2080              6012              1236
+ACTN2                  1                 6                 0                 1
 ```
 
 **Run goheatmap**
 
-Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for normalized count matrix), title (Title of heatmap)
+Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for z-score matrix from vst normalized count matrix), title (Title of heatmap)
 
 ``` r
 # For the spearman's correlation coefficient matrix
@@ -52,6 +52,11 @@ goheatmap(mat, k = 3, n_go = 3, sources = "KEGG", cor.s = TRUE, title = "GOheatm
 
 # For the normalized count matrix by DESeq2
 
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+
 library(DESeq2)
 dds <- DESeqDataSetFromMatrix(countData = mat,
                               colData = samples_df,
@@ -60,7 +65,7 @@ dds <- DESeqDataSetFromMatrix(countData = mat,
 dds <- DESeq(dds)
 mat <- as.data.frame(counts(dds, normalized=T))
 
-goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = FALSE, title = "GOheatmap")
+goheatmap(mat, anno = samples_df, k = 3, n_go = 3, sources = "GO:BP", cor.s = FALSE, title = "GOheatmap")
 ```
 
 <img src="inst/extdata/example_go.bp.png"/>

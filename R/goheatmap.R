@@ -2,6 +2,7 @@
 #'
 #' ComplexHeatmap with GO Terms using gprofiler2 package.
 #' @param mat numeric matrix of the values.
+#' @param anno When
 #' @param k number of groups (cutree).
 #' @param n_go number of GO Terms to display.
 #' @param sources Term sources from g:profiler - GO Terms, KEGG, Reactome, WikiPathways, Transfac, miRTarBase, Human Protein Atlas, CORUM protein complexes, Human Phenotype Ontology ("GO:MF","GO:CC","GO:BP","KEGG","REAC","WP","TF","MIRNA","HPA","CORUM","HP")
@@ -10,20 +11,17 @@
 #' @examples
 #' goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap")
 #' @export
-#' @import ComplexHeatmap gprofiler2 dendextend magrittr DESeq2
+#' @import ComplexHeatmap gprofiler2 dendextend magrittr DESeq2 RColorBrewer
 #' @importFrom dplyr filter top_n
 #' @importFrom grid grid.text grid.rect gpar unit
 
-goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap"){
+goheatmap <- function(mat, anno= NA, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap"){
   if(cor.s){
     mat <- mat[, !sapply(mat, function(x) { stats::sd(x) == 0} )]
     mat <- cor(t(mat), method = "spearman")
   } else {
-    #mat <- varianceStabilizingTransformation(as.matrix(round(mat)))
-    mat <- t(mat)
-    #genes <- colnames(mat)
-    #mat <- apply(mat,1,scale)
-    #rownames(mat) <- genes
+    mat <- varianceStabilizingTransformation(as.matrix(round(mat)))
+    mat <- t(scale(t(mat)))
   }
 
   ht <- as.dendrogram(hclust(dist(mat)), method = "average")
@@ -32,11 +30,14 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, tit
   labels_ht <- labels_colors(ht)
   for (i in 1:k) {
     clusters <- names(labels_ht[which(factor(labels_ht) == unique(labels_ht)[i])])
-    go <- gost(clusters)
-    gp_mod = go$result[,c("source", "term_id", "term_name", "p_value")]
-    row.names(gp_mod) = gp_mod$term_id
-    gp_term <- filter(gp_mod, grepl(sources, source, ignore.case=TRUE))
-    n_go_st <- gp_term %>% top_n(-n_go)
+    tryCatch({
+      go <- gost(clusters)
+      gp_mod = go$result[,c("source", "term_id", "term_name", "p_value")]
+      row.names(gp_mod) = gp_mod$term_id
+      gp_term <- filter(gp_mod, grepl(sources, source, ignore.case=TRUE))
+      n_go_st <- gp_term %>% top_n(-n_go)
+
+    }, error = function(e) print("There is no term"))
     if(!dim(n_go_st)[1] == 0){
       assign(paste0("lt",i), unlist(lapply(1:n_go, function(x) paste0(n_go_st$term_id[x]))))
     } else {
@@ -62,9 +63,20 @@ goheatmap <- function(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, tit
         grid.text(paste(text_list[[i]], collapse = "\n"), x = unit(2, "mm"), just = "left")
       })}
   } else {
+    ha_row = NULL
+    tryCatch({
+      if(!is.null(anno) && !cor.s){
+        top <- colorRampPalette(brewer.pal(12,"Paired"))(length(levels(factor(anno[,2]))))
+        names(top) <- levels(factor(anno[,2]))
+        ha_row <- HeatmapAnnotation(df = anno[,2], annotation_label	= colnames(anno)[2],which="column", col = list(condition = top))
+      }
+    }, error = function(e) print("No information of condition"))
+
+
     draw(Heatmap(mat, name = title,
                  cluster_rows = ht,
                  row_split = k,
+                 top_annotation = ha_row,
                  right_annotation = ha,
                  border = TRUE ,
                  show_row_names = FALSE,

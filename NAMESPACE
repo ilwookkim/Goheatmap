@@ -3,6 +3,7 @@
 export(goheatmap)
 import(ComplexHeatmap)
 import(DESeq2)
+import(RColorBrewer)
 import(dendextend)
 import(gprofiler2)
 import(magrittr)

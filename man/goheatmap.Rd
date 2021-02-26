@@ -6,6 +6,7 @@
 \usage{
 goheatmap(
   mat,
+  anno = NA,
   k = 3,
   n_go = 3,
   sources = "GO:BP",
@@ -15,6 +16,8 @@ goheatmap(
 }
 \arguments{
 \item{mat}{numeric matrix of the values.}
+
+\item{anno}{When}
 
 \item{k}{number of groups (cutree).}
 
