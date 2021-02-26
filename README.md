@@ -45,9 +45,9 @@ APAF1               2102              2265              2689               626
 Parameters k (number of clustering), n_go (number of terms to display), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for z-score normalization from variance stabilizing transformed matrix (DESeq2)), title (Title of heatmap)
 
 ``` r
-goheatmap(mat, k = 2, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "GOheatmap")
-goheatmap(mat, k = 2, n_go = 3, sources = "KEGG", cor.s = TRUE, title = "GOheatmap")
-goheatmap(mat, k = 2, n_go = 3, sources = "GO:BP", cor.s = FALSE, title = "GOheatmap")
+goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "GOheatmap")
+goheatmap(mat, k = 3, n_go = 3, sources = "KEGG", cor.s = TRUE, title = "GOheatmap")
+goheatmap(mat, k = 3, n_go = 3, sources = "GO:BP", cor.s = FALSE, title = "GOheatmap")
 ```
 
 <img src="inst/extdata/example_go.bp.png"/>
