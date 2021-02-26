@@ -61,6 +61,14 @@ goheatmap(mat, k = 3, n_go = 3, sources = "KEGG", cor.s = TRUE, title = "GOheatm
 <img src="inst/extdata/example_go.bp.png"/>
 <img src="inst/extdata/example_kegg.png"/>
 
+When sources = "", goheatmap function uses all possible sources ("GO:MF","GO:CC","GO:BP","KEGG","REAC","WP","TF","MIRNA","HPA","CORUM","HP")
+
+``` r
+goheatmap(mat, k = 3, n_go = 3, sources = "", cor.s = TRUE, title = "GOheatmap")
+```
+
+<img src="inst/extdata/example_all.png"/>
+
 
 When cor.s = FALSE, then countdata needs to be normalized for visualization.
 

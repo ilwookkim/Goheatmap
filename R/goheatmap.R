@@ -78,8 +78,6 @@ goheatmap <- function(mat, anno= NA, k = 3, n_go = 3, sources = "GO:BP", cor.s =
 
 
     draw(Heatmap(mat, name = title,
-                 column_title = title,
-                 column_title_gp = gpar(fontsize = 15, fontface = "bold"),
                  cluster_rows = ht,
                  row_split = k,
                  top_annotation = ha_row,
