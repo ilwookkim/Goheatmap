@@ -1,3 +1,7 @@
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/ilwookkim/Goheatmap/workflows/R-CMD-check/badge.svg)](https://github.com/ilwookkim/Goheatmap/actions)
+  <!-- badges: end -->
+
 # **Goheatmap**
 Heatmap with GO Terms
 

@@ -16,6 +16,8 @@
 #' @import ComplexHeatmap gprofiler2 dendextend magrittr DESeq2 RColorBrewer
 #' @importFrom dplyr filter top_n
 #' @importFrom grid grid.text grid.rect gpar unit
+#' @importFrom grDevices colorRampPalette
+#' @importFrom stats as.dendrogram cor dist hclust
 
 goheatmap <- function(mat, anno= NA, k = 3, n_go = 3, sources = "GO:BP", cor.s = TRUE, title = "Goheatmap"){
   if(cor.s){
