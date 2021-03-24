@@ -48,7 +48,7 @@ ACTN2                  1                 6                 0                 1
 
 **Run goheatmap**
 
-goheatmap function needs following parameters. 
+goheatmap function needs the following parameters. 
 RNAseq countdata (column: samples ID, row: HGNC gene symbol), anno (samples annotation data frame, Default to <span style="color:grey">*NULL*</span>) ,Parameters k (number of clustering, Default to <span style="color:grey">*3*</span>), n_go (number of terms to display, Default to <span style="color:grey">*3*</span>), sources [details here](https://biit.cs.ut.ee/gprofiler/page/apis), cor (TRUE for spearman's correlation coefficient, FALSE for vst scaled matrix, Default to <span style="color:grey">*TRUE*</span>), title (Title of heatmap, Default to <span style="color:grey">*GOheatmap*</span>)
 
 
@@ -89,7 +89,7 @@ dds <- DESeqDataSetFromMatrix(countData = mat,
 dds <- DESeq(dds)
 mat <- as.data.frame(counts(dds, normalized=T))
 ```
-If samples annoation data frame is exist, provide it into anno parameter. Default to NULL
+If a sample annotation data frame exists, provide it into anno parameter. Default to NULL
 
 ```r
 knitr::kable(head(samples_df[, 1:2], 3), "simple")
